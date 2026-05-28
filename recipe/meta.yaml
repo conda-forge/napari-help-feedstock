@@ -6,22 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari_help-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari_help-{{ version }}.tar.gz
   sha256: 54e8972c7f1831abdc63fd24d8260c218b22822a90431f0cd0e34213dbda588d
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
     - setuptools-scm
-    - python >=3.8
+    - python {{ python_min }}
   run:
     - napari
-    - python >=3.8
+    - python >={{ python_min }}
     - qtpy
 
 test:
@@ -32,6 +32,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/brisvag/napari-help
